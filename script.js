@@ -114,6 +114,8 @@ const tagsEl = document.querySelector('#tags');
 setGenre();
 //
 function setGenre() {
+	let optionsCollection = [];
+	let tagsCollection = [];
 	tagsEl.innerHTML = '';
 	selectList.innerHTML = '';
 	selectList.innerHTML = '<option selected disabled>Choose a movie genre...</option>';
@@ -143,11 +145,18 @@ function setGenre() {
 			getMovies(API_URL + '&with_genres=' + encodeURI(selectedGenre.join(',')))
 			highlightSelection()
 		})
-		tagsEl.append(t);
+		/* tagsEl.append(t); */
+		tagsCollection.push(t);
 		//add option to list of selects
-		selectList.append(option);
+		/* selectList.append(option); */
+		optionsCollection.push(option);
 	})
+	const addElemsToDiv = (div, elems) => {
+		return elems.map( elem => div.append(elem));
+	}
 
+	addElemsToDiv(tagsEl, tagsCollection);
+	addElemsToDiv(selectList, optionsCollection);
 }
 
 
